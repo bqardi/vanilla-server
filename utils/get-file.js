@@ -1,5 +1,6 @@
 import { extname, dirname, join } from "path";
 import { fileURLToPath } from "url";
+import { getMimeType } from "./get-mime-type.js";
 
 const filePath = fileURLToPath(import.meta.url);
 const utils = dirname(filePath);
@@ -12,9 +13,10 @@ export function getFile(req, folder = "public") {
     req.url.endsWith("/") ? `${req.url}index.html` : req.url
   );
   const extension = extname(path);
+  const contentType = getMimeType(extension);
 
   return {
     path,
-    extension,
+    contentType,
   };
 }

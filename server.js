@@ -8,11 +8,6 @@ server.listen(3000, onConnect);
 function handleRequest(req, res) {
   let file = getFile(req);
 
-  let contentType = "text/html";
-  if (file.extension === ".css") contentType = "text/css";
-  if (file.extension === ".js") contentType = "text/javascript";
-  if (file.extension === ".ico") contentType = "image/x-icon";
-
   fs.readFile(file.path, (err, data) => {
     if (err) {
       res.writeHead(500, { "Content-Type": "text/plain" });
@@ -20,7 +15,7 @@ function handleRequest(req, res) {
       return;
     }
 
-    res.writeHead(200, { "Content-Type": contentType });
+    res.writeHead(200, { "Content-Type": file.contentType });
     res.end(data);
   });
 }
