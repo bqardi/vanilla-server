@@ -1,24 +1,19 @@
 import http from "http";
 import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
+import { getFile } from "./utils/get-file.js";
 
 const server = http.createServer(handleRequest);
 server.listen(3000, onConnect);
 
 function handleRequest(req, res) {
-  const filePath = path.join(
-    path.dirname(fileURLToPath(import.meta.url)),
-    "public",
-    req.url.endsWith("/") ? `${req.url}index.html` : req.url
-  );
+  let file = getFile(req);
 
   let contentType = "text/html";
-  if (path.extname(filePath) === ".css") contentType = "text/css";
-  if (path.extname(filePath) === ".js") contentType = "text/javascript";
-  if (path.extname(filePath) === ".ico") contentType = "image/x-icon";
+  if (file.extension === ".css") contentType = "text/css";
+  if (file.extension === ".js") contentType = "text/javascript";
+  if (file.extension === ".ico") contentType = "image/x-icon";
 
-  fs.readFile(filePath, (err, data) => {
+  fs.readFile(file.path, (err, data) => {
     if (err) {
       res.writeHead(500, { "Content-Type": "text/plain" });
       res.end("Error: Could not read file");
