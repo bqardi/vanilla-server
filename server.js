@@ -2,9 +2,11 @@ import http from "http";
 import fs from "fs";
 import { getFile } from "./utils/get-file.js";
 import { errorHandler } from "./utils/error-handler.js";
+import { setupHotReload } from "./hot-reload.js";
 
-const PORT = 8888;
+const PORT = 3000;
 const server = http.createServer(handleRequest);
+setupHotReload(server);
 server.listen(PORT, onConnect);
 
 function handleRequest(req, res) {

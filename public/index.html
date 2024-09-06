@@ -7,10 +7,21 @@
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
-    <h1 class="text-blue-500 font-semibold text-5xl">
+    <h1 class="text-green-500 font-semibold text-4xl">
       Hello, World! This is my content served from my Vanilla Server
     </h1>
 
+    <p class="text-red-500 text-xl font-thin">Hello World</p>
+
     <script src="js/app.js"></script>
+
+    <script>
+      // For hot-reload functionality
+      const ws = new WebSocket("ws://localhost:3000");
+      ws.onmessage = function (event) {
+        if (event.data !== "reload") return;
+        window.location.reload();
+      };
+    </script>
   </body>
 </html>
