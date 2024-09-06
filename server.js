@@ -3,8 +3,9 @@ import fs from "fs";
 import { getFile } from "./utils/get-file.js";
 import { errorHandler } from "./utils/error-handler.js";
 
+const PORT = 8888;
 const server = http.createServer(handleRequest);
-server.listen(3000, onConnect);
+server.listen(PORT, onConnect);
 
 function handleRequest(req, res) {
   let file = getFile(req);
@@ -24,5 +25,5 @@ function handleRequest(req, res) {
 
 function onConnect(error) {
   if (error) return console.error(error);
-  console.log("Server is running on port 3000");
+  console.log(`Server is running on port ${PORT}`);
 }
