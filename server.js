@@ -1,6 +1,7 @@
 import http from "http";
 import fs from "fs";
 import { getFile } from "./utils/get-file.js";
+import { errorHandler } from "./utils/error-handler.js";
 
 const server = http.createServer(handleRequest);
 server.listen(3000, onConnect);
@@ -10,8 +11,9 @@ function handleRequest(req, res) {
 
   fs.readFile(file.path, (err, data) => {
     if (err) {
-      res.writeHead(500, { "Content-Type": "text/plain" });
-      res.end("Error: Could not read file");
+      const { statusCode, header, message } = errorHandler(res, err);
+      res.writeHead(statusCode, header);
+      res.end(message);
       return;
     }
 
