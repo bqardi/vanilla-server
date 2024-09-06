@@ -6,12 +6,17 @@
   "type": "module",
   "scripts": {
     "start": "node server.js",
-    "watch": "nodemon server.js"
+    "watch": "nodemon server.js",
+    "build:css": "npx tailwindcss -i ./src/tailwind.css -o ./public/css/styles.css",
+    "watch:css": "npx tailwindcss -i ./src/tailwind.css -o ./public/css/styles.css --watch"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "nodemon": "^3.1.4"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.10"
   }
 }
